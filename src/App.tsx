@@ -1,5 +1,10 @@
+import Layout from "./Layout";
+import Pages from "./Routes";
+
 function App() {
-  return <h1>Sweeft Digital Assignment</h1>;
+  return <Layout>
+    <Pages />
+  </Layout>
 }
 
 export default App;
