@@ -1,0 +1,3 @@
+#### infinity scroll 
+Here is a choice that needs to be made. The task is to implement infinite scroll for both pages but it is not said should we implement scroll for popular images as well?<br>
+If I decide to implement it for both cases (popular and searched) it gets a bit more complicated building custom hook that would cover both cases in scalable manner with clean, sustained and maintainable code. <br>This seems like self-assignment that is achievable, but in this case I guess it's not necessary.<br>So I'll be implementing hook that will manage state of scrollable data queried by search term.

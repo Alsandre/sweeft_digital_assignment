@@ -3,20 +3,25 @@ import {
   generateSearchQuery,
   generateStatisticsFromID,
 } from "../services/ApiServices";
+import { TQuery } from "../types";
 
 export const HomePage: React.FC = () => {
   const popHandle = async () => {
-    let res = await fetch(generatePopImgsQuery());
+    let res = await fetch(generatePopImgsQuery({ page: 1 } as TQuery));
     let data = await res.json();
     console.log(data);
   };
   const searchHandle = async () => {
-    let res = await fetch(generateSearchQuery({ query: "Toad", page: 1 }));
+    let res = await fetch(
+      generateSearchQuery({ query: "Toad", page: 1 } as TQuery)
+    );
     let data = await res.json();
     console.log(data);
   };
   const statsHandle = async () => {
-    let res = await fetch(generateStatisticsFromID("ZRns2R5azu0"));
+    let res = await fetch(
+      generateStatisticsFromID({ id: "ZRns2R5azu0" } as TQuery)
+    );
     let data = await res.json();
     console.log(data);
   };
