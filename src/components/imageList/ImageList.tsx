@@ -1,13 +1,15 @@
 import { TImageListProps } from "../../types";
+import { ImageCard } from "./ImageCard";
+import styles from './imageList.module.css'
 
 export const ImageList: React.FC<TImageListProps> = ({ imageList }) => {
   return (
     <div>
-      {imageList.map((imageData) => (
-        <li key={imageData.id}>
-          <img src={imageData.urls.thumb} alt={imageData.alt_description} />
-        </li>
-      ))}
+      <ul className={styles.content}>
+        {imageList.map((imageData) => (
+          <ImageCard key={imageData.id} {...imageData} />
+        ))}
+      </ul>
     </div>
   );
 };

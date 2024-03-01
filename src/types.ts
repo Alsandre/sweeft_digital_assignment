@@ -16,19 +16,23 @@ export type TInfiniteScrollProps = {
 };
 
 export type TImageData = {
-    id: string
-    alt_description: string
-    urls: {[key: string]: string, }
-    links: {[key: string]: string, }
-}
+  id: string;
+  alt_description: string;
+  urls: { [key: string]: string };
+  links: { [key: string]: string };
+};
 
 export type TStatsData = {
-    id: string
-    downloads: number
-    likes: number
-    views: number
-}
+  id: string;
+  downloads: number;
+  likes: number;
+  views: number;
+};
 
 export type TImageListProps = {
-    imageList: TImageData[]
-}
+  imageList: TImageData[];
+};
+
+export type TImageCardProps = {
+  imageData: TImageData;
+};

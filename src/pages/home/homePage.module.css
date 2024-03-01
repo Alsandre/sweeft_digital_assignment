@@ -1,0 +1,7 @@
+.content {
+  width: 95%;
+  height: 700px;
+  border: 5px dashed green;
+  background-color: bisque;
+  overflow: scroll;
+}
