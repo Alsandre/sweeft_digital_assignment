@@ -1,6 +1,6 @@
 import { EQueryType, TQuery } from "../types";
 
-const CLIENT_ID = import.meta.env.REACT_APP_API_ACCESS_KEY;
+const CLIENT_ID = import.meta.env.VITE_REACT_APP_API_ACCESS_KEY;
 const BASE_URL = "https://api.unsplash.com/";
 const IMG_PER_REQUEST = 20;
 
