@@ -17,7 +17,6 @@ export const HomePage: React.FC = () => {
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight;
       if (scrolledToBottom && !isFetching) {
-        console.log("Fetching more data...");
         setPageIndex(pageIndex + 1);
       }
     };
@@ -28,17 +27,16 @@ export const HomePage: React.FC = () => {
       document.removeEventListener("scroll", onScroll);
     };
   }, [pageIndex, isFetching]);
-  console.log(scrollableData);
   return (
     <>
       <h1>Home</h1>
       <Serachbar />
       {scrollableData.length > 0 ? (
-        <div className={styles.content}>
+        <ul className={styles.content}>
           <ImageList imageList={scrollableData} />
           {isLoading && "Loading..."}
           {error && `${error}`}
-        </div>
+        </ul>
       ) : (
         <PopularImages />
       )}
