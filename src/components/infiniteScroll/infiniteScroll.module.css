@@ -1,8 +1,0 @@
-.image-card {
-  width: 300px;
-  border-radius: 15px;
-  transition: all 0.3s;
-}
-.image-card:hover {
-  scale: 1.2;
-}
