@@ -4,7 +4,6 @@ import styles from "./infiniteScroll.module.css";
 
 export const InfiniteScroll: React.FC<TInfiniteScroll> = ({
   imageList,
-  onScrollEnd,
 }) => {
   console.log("InfiniteScroll");
   const observer = useRef<IntersectionObserver | null>(null);
@@ -16,7 +15,6 @@ export const InfiniteScroll: React.FC<TInfiniteScroll> = ({
         console.log("no intersec");
         if (entries[0].isIntersecting) {
           console.log("intersec");
-          onScrollEnd();
         }
       },
       { threshold: 0.3 }

@@ -1,8 +1,4 @@
-export enum EQueryType {
-  SEARCH = "search",
-  POPULAR_IMAGES = "popular",
-  STATISTICS = "stats",
-}
+import { EQueryType } from "./constants";
 
 export type TQuery = {
   query: string;
@@ -13,7 +9,6 @@ export type TQuery = {
 
 export type TInfiniteScroll = {
   imageList: TImageData[];
-  onScrollEnd: () => void;
 };
 
 export type TImageData = {
@@ -31,9 +26,7 @@ export type TStatsData = {
 };
 
 export type TImageListProps = {
-  isLoading: boolean;
   imageList: TImageData[];
-  onScrollEnd: () => void;
 };
 
 export type TImageCardProps = {
