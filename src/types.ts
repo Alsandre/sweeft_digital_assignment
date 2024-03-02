@@ -30,7 +30,9 @@ export type TStatsData = {
 };
 
 export type TImageListProps = {
+  isLoading: boolean;
   imageList: TImageData[];
+  onScrollEnd: () => void;
 };
 
 export type TImageCardProps = {

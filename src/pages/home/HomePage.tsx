@@ -3,19 +3,23 @@ import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import styles from "./homePage.module.css";
 
 export const HomePage: React.FC = () => {
-  const { scrollableData, setPageIndex } = useInfiniteScroll({
+  const { scrollableData, setPageIndex, isLoading, error } = useInfiniteScroll({
     searchTerm: "toad",
   });
 
-  const handleScroll = (e: React.WheelEvent) => {
-    e.stopPropagation();
-    console.log(e.target);
-  };
   return (
     <>
       <h1>Home</h1>
-      <div className={styles.content} onWheel={(e) => handleScroll(e)}>
-        {scrollableData && <ImageList imageList={scrollableData} />}
+      <div className={styles.content}>
+        {scrollableData && (
+          <ImageList
+            isLoading={isLoading}
+            imageList={scrollableData}
+            onScrollEnd={() => setPageIndex((curInd) => curInd + 1)}
+          />
+        )}
+        {isLoading && "Loading..."}
+        {error && `${error}`}
       </div>
     </>
   );
