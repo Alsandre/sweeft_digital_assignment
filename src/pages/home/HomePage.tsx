@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { ImageList, Serachbar } from "../../components";
+import { Suspense, lazy, useEffect, useState } from "react";
+import { Serachbar } from "../../components";
 import styles from "./homePage.module.css";
 import { useGetImgBySearchQuery } from "../../store/unsplashApi";
 import { PopularImages } from "../../components/popularImages/PopularImages";
+
+const ImageList = lazy(() => import("../../components/imageList/ImageList"));
 
 export const HomePage: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(1);
@@ -33,8 +35,9 @@ export const HomePage: React.FC = () => {
       <Serachbar />
       {scrollableData.length > 0 ? (
         <ul className={styles.content}>
-          <ImageList imageList={scrollableData} />
-          {isLoading && "Loading..."}
+          <Suspense fallback={<div>"Loading..."</div>}>
+            <ImageList imageList={scrollableData} />
+          </Suspense>
           {error && `${error}`}
         </ul>
       ) : (

@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { ImageCard } from "./ImageCard";
 import { ImagePreview } from "../imagePreview/ImagePreview";
 
-export const ImageList: React.FC<TImageListProps> = ({ imageList }) => {
+const ImageList: React.FC<TImageListProps> = ({ imageList }) => {
   const initActiveImg = {
     id: "",
     alt_description: "",
@@ -45,3 +45,4 @@ export const ImageList: React.FC<TImageListProps> = ({ imageList }) => {
     </>
   );
 };
+export default ImageList;
