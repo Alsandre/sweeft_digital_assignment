@@ -38,3 +38,10 @@ export type TImageListProps = {
 export type TImageCardProps = {
   imageData: TImageData;
 };
+
+export type THistoryState = string[];
+
+export type TActionType = {
+  type: string;
+  payload?: any;
+};

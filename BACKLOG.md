@@ -11,3 +11,8 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
   <br>
 - **Note**: when I uptade scrollabledata setter to a function version, where I use previous state to set new state (that was to make sure that when new pages are fetched old ones wont be discarded) <br>
   when React strict mode is on it has a mechanism that would re-mount component for stress testing, this in current scenario turns into reFetching the data, and merging two versions of same data.<br>ofcourse with current setup it is guaranteed that second fetch wont happen unless page index is updated, but because of stress test we have got double key values<br>since we use id of the image which is guaranteed to be unique, but we got image repetition hence id is repeated. one way would be to implement different value for keys, but I would consider this as inappropriate handling of the situation<br>we dont wish for image duplications anyway, so I'll add logic that will prevent final array from having duplicates
+- I have built infinite scroll with different approaches focusing on intersection observer, I have got working logic but with edge cases that needs to be fixed
+- since there are other functionalities that yet needs to be implemented, i prefer to halt development of this functionality 
+- I have finished working version of infinite scroll using element height and scroll event
+- In general itersection observer api provides more control and seems to be more scalable in regards of ui. 
+- current edge case seems solveable, it's just time factor. since a solution is better than no solution.
