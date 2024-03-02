@@ -22,8 +22,10 @@ export const unsplashApi = createApi({
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName;
       },
-      merge: (currentCache, newItems) => {
-        currentCache.results.push(...newItems.results);
+      merge: (currentCache, newItems, meta) => {
+        if (meta.arg.page == 1) {
+          currentCache.results = newItems.results;
+        } else currentCache.results.push(...newItems.results);
       },
       forceRefetch({ currentArg, previousArg }) {
         console.log(currentArg, previousArg);

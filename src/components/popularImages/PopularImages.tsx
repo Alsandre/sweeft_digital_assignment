@@ -9,7 +9,6 @@ export const PopularImages: React.FC = () => {
       {error && "Rate Limit exceeded, please check back later."}
       {imagesList &&
         imagesList.map((image: TImage) => {
-          console.log(image.alt_description);
           return (
             <img
               key={image.id}

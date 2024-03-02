@@ -32,7 +32,7 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <h1>Home</h1>
-      <Serachbar onSearchChange={(term) => console.log(term)}/>
+      <Serachbar onSearchChange={(term) => setSearchTerm(term)}/>
       {scrollableData.length > 0 ? (
         <ul className={styles.content}>
           <Suspense fallback={<div>"Loading..."</div>}>
