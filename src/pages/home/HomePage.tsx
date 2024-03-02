@@ -1,4 +1,4 @@
-import { ImageList } from "../../components";
+import { ImageList, Serachbar } from "../../components";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import styles from "./homePage.module.css";
 
@@ -10,6 +10,7 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <h1>Home</h1>
+      <Serachbar />
       <div className={styles.content}>
         {scrollableData && (
           <ImageList

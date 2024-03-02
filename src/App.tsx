@@ -1,4 +1,4 @@
-import Layout from "./Layout";
+import Layout from "./layout/Layout";
 import Pages from "./Routes";
 
 function App() {
