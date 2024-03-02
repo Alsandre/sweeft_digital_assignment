@@ -1,4 +1,5 @@
-import { ImageList, Serachbar } from "../../components";
+import { Serachbar } from "../../components";
+import { InfiniteScroll } from "../../components/infiniteScroll/InfiniteScroll";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import styles from "./homePage.module.css";
 
@@ -13,10 +14,9 @@ export const HomePage: React.FC = () => {
       <Serachbar />
       <div className={styles.content}>
         {scrollableData && (
-          <ImageList
-            isLoading={isLoading}
+          <InfiniteScroll
             imageList={scrollableData}
-            onScrollEnd={() => setPageIndex((curInd) => curInd + 1)}
+            onScrollEnd={() => setPageIndex((prevInd) => prevInd + 1)}
           />
         )}
         {isLoading && "Loading..."}

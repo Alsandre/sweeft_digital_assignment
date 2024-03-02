@@ -11,8 +11,9 @@ export type TQuery = {
   type: EQueryType;
 };
 
-export type TInfiniteScrollProps = {
-  searchTerm: string;
+export type TInfiniteScroll = {
+  imageList: TImageData[];
+  onScrollEnd: () => void;
 };
 
 export type TImageData = {
