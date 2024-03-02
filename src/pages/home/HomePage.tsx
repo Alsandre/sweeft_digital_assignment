@@ -1,19 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ImageList, Serachbar } from "../../components";
-import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import styles from "./homePage.module.css";
+import { useGetImgBySearchQuery } from "../../store/unsplashApi";
 
 export const HomePage: React.FC = () => {
-  const { scrollableData, setPageIndex, isLoading, error, pageIndex } =
-    useInfiniteScroll({
-      searchTerm: "toad",
-    });
+  const [pageIndex, setPageIndex] = useState(0);
+  const { data, isFetching, isLoading, error } = useGetImgBySearchQuery({
+    searchTerm: "",
+    page: pageIndex,
+  });
+  const scrollableData = data?.results ?? [];
 
   useEffect(() => {
     const onScroll = () => {
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      if (scrolledToBottom && !isLoading) {
+      if (scrolledToBottom && !isFetching) {
         console.log("Fetching more data...");
         setPageIndex((prev) => prev + 1);
       }
@@ -24,17 +26,17 @@ export const HomePage: React.FC = () => {
     return function () {
       document.removeEventListener("scroll", onScroll);
     };
-  }, [pageIndex, isLoading]);
+  }, [pageIndex, isFetching]);
 
   return (
     <>
       <h1>Home</h1>
       <Serachbar />
-      <div className={styles.content}>
-        {scrollableData && <ImageList imageList={scrollableData} />}
+      <ul className={styles.content}>
+        {scrollableData.length > 0 && <ImageList imageList={scrollableData} />}
         {isLoading && "Loading..."}
         {error && `${error}`}
-      </div>
+      </ul>
     </>
   );
 };

@@ -2,5 +2,7 @@
   width: 95%;
   border: 5px dashed green;
   background-color: bisque;
-  overflow: scroll;
+  margin: 50px auto;
+  display: flex;
+  flex-wrap: wrap;
 }
