@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const POP_IMG_PER_PAGE = 20;
 const SEARCH_RESULT_PER_PAGE = 20;
-const API_KEY = import.meta.env.VITE_REACT_APP_CLIENT_ID;
+const API_KEY = import.meta.env.VITE_REACT_APP_API_ACCESS_KEY;
 
 export const unsplashApi = createApi({
   reducerPath: "unsplashApi",
@@ -17,7 +17,6 @@ export const unsplashApi = createApi({
     }),
     getImgBySearch: builder.query({
       query: ({ searchTerm, page }: { [key: string]: string | number }) => {
-        console.log("query");
         return `/search/photos/?query=${searchTerm}&page=${page}&per_page=${SEARCH_RESULT_PER_PAGE}&client_id=${API_KEY}`;
       },
       serializeQueryArgs: ({ endpointName }) => {
@@ -27,6 +26,7 @@ export const unsplashApi = createApi({
         currentCache.results.push(...newItems.results);
       },
       forceRefetch({ currentArg, previousArg }) {
+        console.log(currentArg, previousArg);
         return currentArg !== previousArg;
       },
     }),

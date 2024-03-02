@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
-    <div>
+    <>
       <nav>
         <ul>
           <li>
@@ -14,7 +14,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
         </ul>
       </nav>
       {children}
-    </div>
+    </>
   );
 };
 

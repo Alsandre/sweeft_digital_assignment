@@ -1,29 +1,10 @@
-import { useCallback, useRef } from "react";
 import { TImageData, TInfiniteScroll } from "../../types";
 import styles from "./infiniteScroll.module.css";
 
-export const InfiniteScroll: React.FC<TInfiniteScroll> = ({
-  imageList,
-}) => {
-  console.log("InfiniteScroll");
-  const observer = useRef<IntersectionObserver | null>(null);
-  const observerTarget = useCallback((node: HTMLImageElement) => {
-    if (!node) return;
-    if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver(
-      (entries) => {
-        console.log("no intersec");
-        if (entries[0].isIntersecting) {
-          console.log("intersec");
-        }
-      },
-      { threshold: 0.3 }
-    );
-    observer.current.observe(node);
-  }, []);
+export const InfiniteScroll: React.FC<TInfiniteScroll> = ({ imageList }) => {
   return (
     <>
-      {imageList.map((image: TImageData, index) => {
+      {imageList.map((image: TImageData) => {
         return (
           <img
             width={"500px"}
@@ -31,10 +12,10 @@ export const InfiniteScroll: React.FC<TInfiniteScroll> = ({
             src={image.urls.regular}
             alt={image.alt_description}
             key={image.id}
-            ref={index == imageList.length - 1 ? observerTarget : null}
           />
         );
       })}
     </>
   );
 };
+

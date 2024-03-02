@@ -1,7 +1,9 @@
 .card {
   width: 300px;
   height: 270px;
-  object-fit: cover;
 }
 .card img {
+  width: 300px;
+  height: 270px;
+  object-fit: cover;
 }

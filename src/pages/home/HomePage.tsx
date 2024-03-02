@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { ImageList, Serachbar } from "../../components";
 import styles from "./homePage.module.css";
 import { useGetImgBySearchQuery } from "../../store/unsplashApi";
+import { PopularImages } from "../../components/popularImages/PopularImages";
 
 export const HomePage: React.FC = () => {
-  const [pageIndex, setPageIndex] = useState(0);
+  const [pageIndex, setPageIndex] = useState(1);
   const { data, isFetching, isLoading, error } = useGetImgBySearchQuery({
-    searchTerm: "",
+    searchTerm: "whale",
     page: pageIndex,
   });
   const scrollableData = data?.results ?? [];
@@ -17,7 +18,7 @@ export const HomePage: React.FC = () => {
         window.innerHeight + window.scrollY >= document.body.offsetHeight;
       if (scrolledToBottom && !isFetching) {
         console.log("Fetching more data...");
-        setPageIndex((prev) => prev + 1);
+        setPageIndex(pageIndex + 1);
       }
     };
 
@@ -27,16 +28,20 @@ export const HomePage: React.FC = () => {
       document.removeEventListener("scroll", onScroll);
     };
   }, [pageIndex, isFetching]);
-
+  console.log(scrollableData);
   return (
     <>
       <h1>Home</h1>
       <Serachbar />
-      <ul className={styles.content}>
-        {scrollableData.length > 0 && <ImageList imageList={scrollableData} />}
-        {isLoading && "Loading..."}
-        {error && `${error}`}
-      </ul>
+      {scrollableData.length > 0 ? (
+        <div className={styles.content}>
+          <ImageList imageList={scrollableData} />
+          {isLoading && "Loading..."}
+          {error && `${error}`}
+        </div>
+      ) : (
+        <PopularImages />
+      )}
     </>
   );
 };
