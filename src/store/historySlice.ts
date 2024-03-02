@@ -1,14 +1,15 @@
 import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
+import { THistoryState } from "../types";
 
 export const historySlice = createSlice({
   name: "history",
   initialState: {},
   reducers: {
     update: (
-      state: { [key: string]: string },
-      action: PayloadAction<{ [key: string]: string }>
+      state: THistoryState,
+      action: PayloadAction<THistoryState>
     ) => {
-      let currentKey = Object.keys(action.payload)[0]
+      let currentKey = Object.keys(action.payload)[0];
       if (current(state).hasOwnProperty(currentKey)) {
         current(state);
       } else {

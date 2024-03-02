@@ -12,9 +12,15 @@ export type TImageListProps = {
 
 export type TImageCardProps = TImageData & { onClick: () => void };
 
-export type THistoryState = string[];
+export type THistoryState = {
+  [key: string]: TImageData[];
+};
 
 export type TActionType = {
   type: string;
   payload?: any;
+};
+
+export type TSearchBarProps = {
+  onSearchChange: (term: string) => void;
 };

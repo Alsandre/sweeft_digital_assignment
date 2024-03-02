@@ -17,3 +17,6 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
 - In general itersection observer api provides more control and seems to be more scalable in regards of ui. 
 - current edge case seems solveable, it's just time factor. since a solution is better than no solution.
 - since rtk provides caching built in and also requesting stats for image preview cant be so intense to stress network. there is no need for storing fetched data.
+- search term is required for fetching and rendering images on home page and but is available from search bar component, aside from those two no other part of the application requires access to current term
+- nevertheless saved term will be consumed by home page and history page and might be required in search bar component for validating data before caching
+- so since search bar is present only at home page I'll be lifting state up in parent and sharing 

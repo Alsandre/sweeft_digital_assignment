@@ -1,3 +1,8 @@
 export const HistoryPage: React.FC = () => {
-  return <>History</>;
+  return (
+    <>
+      <h1>History</h1>
+      
+    </>
+  );
 };

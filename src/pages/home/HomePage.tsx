@@ -8,12 +8,12 @@ const ImageList = lazy(() => import("../../components/imageList/ImageList"));
 
 export const HomePage: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(1);
-  const { data, isFetching, isLoading, error } = useGetImgBySearchQuery({
-    searchTerm: "whale",
+  const [searchTerm, setSearchTerm] = useState("");
+  const { data, isFetching, error } = useGetImgBySearchQuery({
+    searchTerm,
     page: pageIndex,
   });
   const scrollableData = data?.results ?? [];
-
   useEffect(() => {
     const onScroll = () => {
       const scrolledToBottom =
@@ -32,7 +32,7 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <h1>Home</h1>
-      <Serachbar />
+      <Serachbar onSearchChange={(term) => console.log(term)}/>
       {scrollableData.length > 0 ? (
         <ul className={styles.content}>
           <Suspense fallback={<div>"Loading..."</div>}>
