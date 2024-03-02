@@ -16,3 +16,4 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
 - I have finished working version of infinite scroll using element height and scroll event
 - In general itersection observer api provides more control and seems to be more scalable in regards of ui. 
 - current edge case seems solveable, it's just time factor. since a solution is better than no solution.
+- since rtk provides caching built in and also requesting stats for image preview cant be so intense to stress network. there is no need for storing fetched data.
