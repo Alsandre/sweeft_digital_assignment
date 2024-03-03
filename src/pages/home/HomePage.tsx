@@ -1,6 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Serachbar } from "../../components";
-import styles from "./homePage.module.css";
 import { useGetImgBySearchQuery } from "../../store/unsplashApi";
 import { PopularImages } from "../../components/popularImages/PopularImages";
 
@@ -9,7 +8,7 @@ const ImageList = lazy(() => import("../../components/imageList/ImageList"));
 export const HomePage: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const { data, isFetching, error } = useGetImgBySearchQuery({
+  const { data, isFetching } = useGetImgBySearchQuery({
     searchTerm,
     page: pageIndex,
   });
@@ -32,14 +31,11 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <h1>Home</h1>
-      <Serachbar onSearchChange={(term) => setSearchTerm(term)}/>
+      <Serachbar onSearchChange={(term) => setSearchTerm(term)} />
       {scrollableData.length > 0 ? (
-        <ul className={styles.content}>
-          <Suspense fallback={<div>"Loading..."</div>}>
-            <ImageList imageList={scrollableData} />
-          </Suspense>
-          {error && `${error}`}
-        </ul>
+        <Suspense fallback={<div>"Loading..."</div>}>
+          <ImageList imageList={scrollableData} />
+        </Suspense>
       ) : (
         <PopularImages />
       )}

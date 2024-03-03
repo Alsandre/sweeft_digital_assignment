@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 
 import { ImageCard } from "./ImageCard";
 import { ImagePreview } from "../imagePreview/ImagePreview";
+import styles from "./imageList.module.css";
 
 const ImageList: React.FC<TImageListProps> = ({ imageList }) => {
   const initActiveImg = {
@@ -21,27 +22,29 @@ const ImageList: React.FC<TImageListProps> = ({ imageList }) => {
 
   return (
     <>
-      {imageList.map((image) => (
-        <ImageCard
-          key={image.id}
-          urls={image.urls}
-          alt_description={image.alt_description}
-          id={image.id}
-          onClick={() => {
-            setActiveImgId({
-              id: image.id,
-              alt_description: image.alt_description,
-              urls: image.urls,
-            });
-            setIsModalOpen(true);
-          }}
-        />
-      ))}
-      {isModalOpen &&
-        createPortal(
-          <ImagePreview {...activeImgId} onCloseModal={handleCloseModal} />,
-          document.body
-        )}
+      <ul className={styles.content}>
+        {imageList.map((image) => (
+          <ImageCard
+            key={image.id}
+            urls={image.urls}
+            alt_description={image.alt_description}
+            id={image.id}
+            onClick={() => {
+              setActiveImgId({
+                id: image.id,
+                alt_description: image.alt_description,
+                urls: image.urls,
+              });
+              setIsModalOpen(true);
+            }}
+          />
+        ))}
+        {isModalOpen &&
+          createPortal(
+            <ImagePreview {...activeImgId} onCloseModal={handleCloseModal} />,
+            document.body
+          )}
+      </ul>
     </>
   );
 };
