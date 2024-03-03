@@ -37,3 +37,10 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
 - useQuery does have selectFromResult this is where we parse data for component
 - and in API where we update state we also parse data so we have same signature globally
 - validation of response. if result does not have entries, we notify user, and does not save term into history.
+- when new search term is generated we update state of home page which results in fetching data, we are to update search term only if there is no saved data for term
+- currently rtk already provides caching mechanism 
+- but it makes call to endpoint to get collection anyway and based on result it wont refetch images if already fetched
+- I need to restrict request alltogether if term is saved already
+- this means that search term that is read from seachBar is first checked against history, and if no entries found in history, then we make call to endpoint for new collection
+- on the other hand if we have saved more then 1 page we need to render 1 page only and render rest of pages if scrolled down to bottom
+- fixed for rtk cache, upon changing query, reset page to 1

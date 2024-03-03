@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { updateHistory } from "./historySlice";
 import { parseData } from "../utils/parseData";
+import { EQueryParams } from "../constants";
 
-const POP_IMG_PER_PAGE = 20;
-const SEARCH_RESULT_PER_PAGE = 20;
+
 const API_KEY = import.meta.env.VITE_REACT_APP_API_ACCESS_KEY;
 
 export const unsplashApi = createApi({
@@ -12,14 +12,14 @@ export const unsplashApi = createApi({
   endpoints: (builder) => ({
     getPopularImgs: builder.query({
       query: () =>
-        `photos/?per_page=${POP_IMG_PER_PAGE}&page=1&order_by=popular&client_id=${API_KEY}`,
+        `photos/?per_page=${EQueryParams.POP_IMG_PER_PAGE}&page=1&order_by=popular&client_id=${API_KEY}`,
     }),
     getImgStats: builder.query({
       query: (id: string) => `/photos/${id}/statistics/?client_id=${API_KEY}`,
     }),
     getImgBySearch: builder.query({
       query: ({ searchTerm, page }: { searchTerm: string; page: number }) => {
-        return `/search/photos/?query=${searchTerm}&page=${page}&per_page=${SEARCH_RESULT_PER_PAGE}&client_id=${API_KEY}`;
+        return `/search/photos/?query=${searchTerm}&page=${page}&per_page=${EQueryParams.SEARCH_RESULT_PER_PAGE}&client_id=${API_KEY}`;
       },
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName;

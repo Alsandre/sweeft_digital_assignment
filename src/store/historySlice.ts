@@ -1,9 +1,11 @@
 import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
 import { ELocalStorage, THistoryState } from "../types";
 
+const initialState: THistoryState = {};
+
 export const historySlice = createSlice({
   name: "history",
-  initialState: {},
+  initialState,
   reducers: {
     updateHistory: (
       state: THistoryState,
