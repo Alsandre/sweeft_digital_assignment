@@ -26,7 +26,6 @@ export const historySlice = createSlice({
       const savedHistoryJSON = localStorage.getItem(
         ELocalStorage.SAVED_STORAGE
       );
-      console.log(savedHistoryJSON);
       const savedHistoryParsed = savedHistoryJSON
         ? JSON.parse(savedHistoryJSON)
         : {};
