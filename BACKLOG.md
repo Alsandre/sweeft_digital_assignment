@@ -44,3 +44,4 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
 - this means that search term that is read from seachBar is first checked against history, and if no entries found in history, then we make call to endpoint for new collection
 - on the other hand if we have saved more then 1 page we need to render 1 page only and render rest of pages if scrolled down to bottom
 - fixed for rtk cache, upon changing query, reset page to 1
+- unfortunately the project is not at final stage, there are some aesthetic and some function details that would be better if addressed, but I have to submit the task.

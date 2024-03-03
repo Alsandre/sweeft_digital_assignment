@@ -48,7 +48,6 @@ export const HomePage: React.FC = () => {
   }, [pageIndex, isFetching]);
   return (
     <>
-      <h1>Home</h1>
       <Serachbar onSearchChange={handleSearch} />
       {invalidQuery && <span>"No result. Please try other word"</span>}
       {scrollableData.length > 0 ? (

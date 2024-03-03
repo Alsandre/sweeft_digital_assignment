@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
+import styles from './laayout.module.css'
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <>
-      <nav>
-        <ul>
-          <li>
+      <nav className={styles.navigation}>
+        <ul className={styles.links}>
+          <li className={styles.link}>
             <Link to={"/"}>Home</Link>
           </li>
-          <li>
+          <li className={styles.link}>
             <Link to={"/history"}>History</Link>
           </li>
         </ul>

@@ -1,5 +1,6 @@
 .search-bar {
   width: 95%;
+  display: block;
   line-height: 2rem;
   margin: 5px auto;
   padding: 0.1rem;
