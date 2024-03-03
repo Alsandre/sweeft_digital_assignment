@@ -3,15 +3,10 @@ import { Serachbar } from "../../components";
 import { useGetImgBySearchQuery } from "../../store/unsplashApi";
 import { PopularImages } from "../../components/popularImages/PopularImages";
 import { parseData } from "../../utils/parseData";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { TImageData } from "../../types";
-import { EQueryParams } from "../../constants";
 
 const ImageList = lazy(() => import("../../components/imageList/ImageList"));
 
 export const HomePage: React.FC = () => {
-  const history = useSelector((state: RootState) => state.history);
   const [pageIndex, setPageIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const { data: scrollableData, isFetching } = useGetImgBySearchQuery(
@@ -31,11 +26,7 @@ export const HomePage: React.FC = () => {
   const invalidQuery = scrollableData.length === 0 && searchTerm.length > 0;
 
   const handleSearch = (term: string) => {
-
-    //this should be set for infinite scroll logic both in fetch and saved data scenarios
     if (term !== searchTerm) setPageIndex(1);
-
-    //this should be set when fetching required
     setSearchTerm(term.trim());
   };
 
