@@ -9,14 +9,16 @@ export const historySlice = createSlice({
       state: THistoryState,
       action: PayloadAction<THistoryState>
     ) => {
-      let currentKey = Object.keys(action.payload)[0];
+      let currentKey = Object.keys(action.payload)[0].trim();
       const isSaved = current(state).hasOwnProperty(currentKey);
       const savedSliceLen = isSaved ? current(state)[currentKey].length : 0;
       const currentSliceLen = action.payload[currentKey].length;
+      const emptyResult = currentSliceLen === 0;
       if (isSaved && savedSliceLen > currentSliceLen) {
         localStorage.setItem("HISTORY", JSON.stringify(current(state)));
         return current(state);
-      } else {
+      } else if (emptyResult) return current(state);
+      else {
         const newState = { ...state, ...action.payload };
         localStorage.setItem("HISTORY", JSON.stringify(newState));
         return newState;
@@ -31,9 +33,13 @@ export const historySlice = createSlice({
         : {};
       return savedHistoryParsed;
     },
+    clearHistory: () => {
+      return {};
+    },
   },
 });
 
-export const { updateHistory, syncHistory } = historySlice.actions;
+export const { updateHistory, syncHistory, clearHistory } =
+  historySlice.actions;
 
 export default historySlice.reducer;

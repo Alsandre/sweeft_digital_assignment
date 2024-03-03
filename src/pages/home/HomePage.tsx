@@ -19,7 +19,7 @@ export const HomePage: React.FC = () => {
       selectFromResult: ({ data, isFetching, isLoading }) => ({
         data: parseData(data),
         isLoading,
-        isFetching
+        isFetching,
       }),
     }
   );
@@ -43,11 +43,15 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <h1>Home</h1>
-      <Serachbar onSearchChange={(term) => setSearchTerm(term)} />
-      {scrollableData.length > 0 ? (
+      <Serachbar onSearchChange={(term) => setSearchTerm(term.trim())} />
+
+      {scrollableData.length > 0 && (
         <Suspense fallback={<div>"Loading..."</div>}>
           <ImageList imageList={scrollableData} />
         </Suspense>
+      )}
+      {scrollableData.length === 0 && searchTerm.length > 0 ? (
+        <span>"No result. Please try other word"</span>
       ) : (
         <PopularImages />
       )}

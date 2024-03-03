@@ -36,3 +36,4 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
 - the requested data is cleared using utility function
 - useQuery does have selectFromResult this is where we parse data for component
 - and in API where we update state we also parse data so we have same signature globally
+- validation of response. if result does not have entries, we notify user, and does not save term into history.

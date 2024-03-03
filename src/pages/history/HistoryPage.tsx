@@ -1,12 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { ELocalStorage } from "../../types";
+import { clearHistory } from "../../store/historySlice";
 
 export const HistoryPage: React.FC = () => {
   const history = useSelector((state: RootState) => state.history);
+  const dispatch = useDispatch();
   const searchHistory = history ? Object.keys(history) : [];
   const handleClearHistory = (): void => {
     localStorage.removeItem(ELocalStorage.SAVED_STORAGE);
+    dispatch(clearHistory());
   };
   return (
     <>
