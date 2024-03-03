@@ -9,7 +9,7 @@ photo gallery with two pages main and history, caching for search terms, photo p
 1. [x] The application should have two pages `Main` and `History`
 2. [x] The `Main` page renders 20 most popular images
 3. [x] At `Main` page should be available input of type text, with name "search", without `search` button. Upon typing text, re-render images list based on search term.
-4. [ ] Implement caching.
+4. [x] Implement caching.
 5. [x] At `History` page render list of search queries, for which user requested images. Upon clicking on list entry, render list of related images
 6. [ ] Render list of images using "infinite scroll", both at home and history pages.
 7. [x] When clicked on image, open modal overlay and display full image as well as downloads, views and likes amounts
