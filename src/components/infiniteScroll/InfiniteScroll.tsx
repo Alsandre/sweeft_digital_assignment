@@ -5,7 +5,7 @@ import styles from "./infiniteScroll.module.css";
 const BOTTOM_SCROLL_OFFSET = 40;
 const BACK_TO_TOP_OFFSET = 300;
 
-export const InfiniteScroll: React.FC<{ term: string }> = ({ term }) => {
+const InfiniteScroll: React.FC<{ term: string }> = ({ term }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollableData, setPageIndex, isFetching, error } =
@@ -55,3 +55,5 @@ export const InfiniteScroll: React.FC<{ term: string }> = ({ term }) => {
     </div>
   );
 };
+
+export default InfiniteScroll;

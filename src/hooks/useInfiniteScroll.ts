@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IImageData, fetchData } from "../services/unsplashApi";
+import { IImageData, searchQuery } from "../services/unsplashSearch";
 
 export const useInfiniteScroll = (term: string) => {
   const [scrollableData, setScrollableData] = useState<IImageData[]>([]);
@@ -38,7 +38,7 @@ export const useInfiniteScroll = (term: string) => {
     async function fetchFromUnsplashAPI() {
       setIsFetching(true);
       try {
-        const parsedData = await fetchData(term, pageIndex);
+        const parsedData = await searchQuery(term, pageIndex);
         console.log("fetching");
         console.log(parsedData);
         if (parsedData.status === "ok") {
