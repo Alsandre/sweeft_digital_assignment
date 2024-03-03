@@ -10,15 +10,20 @@ export type TImageListProps = {
   imageList: TImageData[];
 };
 
+export type TInfiniteScrollProps = {
+  imageData: THistorySlice;
+  updateIndex: () => void
+};
+
 export type TImageCardProps = TImageData & { onClick: () => void };
 
 export type THistorySlice = {
-  maxSavedPage: number
-  maxAvailablePage: number
+  maxSavedPage: number;
+  maxAvailablePage: number;
   savedData: TImageData[];
-}
+};
 export type THistoryState = {
-  [key: string]: THistorySlice
+  [key: string]: THistorySlice;
 };
 
 export type TActionType = {
@@ -64,7 +69,7 @@ export type TSearchResponse = {
 };
 
 export type TSelectFromResultReturn = {
-  data: TImageData[]
-  isLoading: boolean
-  isFetching: boolean
-}
+  data: TImageData[];
+  isLoading: boolean;
+  isFetching: boolean;
+};

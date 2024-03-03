@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { TImageData, TImageListProps } from "../../types";
+import { TImageData, TInfiniteScrollProps } from "../../types";
 import { createPortal } from "react-dom";
 
 import { ImageCard } from "./ImageCard";
 import { ImagePreview } from "../imagePreview/ImagePreview";
 import styles from "./imageList.module.css";
+import { EQueryParams } from "../../constants";
 
-const InfiniteScroll: React.FC<TImageListProps> = ({ imageList }) => {
+const InfiniteScroll: React.FC<TInfiniteScrollProps> = ({
+  imageData,
+  updateIndex,
+}) => {
   const initActiveImg = {
     id: "",
     alt_description: "",
@@ -25,9 +29,10 @@ const InfiniteScroll: React.FC<TImageListProps> = ({ imageList }) => {
     const onScroll = () => {
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      const validQuery = imageList.length > 0;
+      const validQuery = imageData.savedData.length > 0;
       if (scrolledToBottom && validQuery) {
         setPageIndex(pageIndex + 1);
+        if (imageData.maxSavedPage == pageIndex) updateIndex();
       }
     };
 
@@ -37,26 +42,27 @@ const InfiniteScroll: React.FC<TImageListProps> = ({ imageList }) => {
       document.removeEventListener("scroll", onScroll);
     };
   }, [pageIndex]);
-
   return (
     <>
       <ul className={styles.content}>
-        {imageList.map((image) => (
-          <ImageCard
-            key={image.id}
-            urls={image.urls}
-            alt_description={image.alt_description}
-            id={image.id}
-            onClick={() => {
-              setActiveImgId({
-                id: image.id,
-                alt_description: image.alt_description,
-                urls: image.urls,
-              });
-              setIsModalOpen(true);
-            }}
-          />
-        ))}
+        {imageData.savedData
+          .slice(0, pageIndex * EQueryParams.SEARCH_RESULT_PER_PAGE)
+          .map((image) => (
+            <ImageCard
+              key={image.id}
+              urls={image.urls}
+              alt_description={image.alt_description}
+              id={image.id}
+              onClick={() => {
+                setActiveImgId({
+                  id: image.id,
+                  alt_description: image.alt_description,
+                  urls: image.urls,
+                });
+                setIsModalOpen(true);
+              }}
+            />
+          ))}
         {isModalOpen &&
           createPortal(
             <ImagePreview {...activeImgId} onCloseModal={handleCloseModal} />,

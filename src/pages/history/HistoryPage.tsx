@@ -14,7 +14,7 @@ export const HistoryPage: React.FC = () => {
     localStorage.removeItem(ELocalStorage.SAVED_STORAGE);
     dispatch(clearHistory());
   };
-  const scrollableData = term && history[term].savedData;
+  const scrollableData = term && history[term];
   console.log(scrollableData);
   return (
     <>
@@ -28,7 +28,9 @@ export const HistoryPage: React.FC = () => {
             </li>
           ))}
       </ul>
-      {scrollableData && <InfiniteScroll imageList={scrollableData} />}
+      {scrollableData && (
+        <InfiniteScroll imageData={scrollableData} updateIndex={() => {}} />
+      )}
     </>
   );
 };

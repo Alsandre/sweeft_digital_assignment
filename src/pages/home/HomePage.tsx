@@ -1,18 +1,27 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { Serachbar } from "../../components";
 import { useGetImgBySearchQuery } from "../../store/unsplashApi";
 import { PopularImages } from "../../components/popularImages/PopularImages";
 import { parseData } from "../../utils/parseData";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { THistorySlice } from "../../types";
 
-const ImageList = lazy(() => import("../../components/imageList/ImageList"));
+const InfiniteScroll = lazy(
+  () => import("../../components/imageList/InfiniteScroll")
+);
 
 export const HomePage: React.FC = () => {
   const history = useSelector((state: RootState) => state.history);
+  const [scrollableData, setScrollableData] = useState<THistorySlice>({
+    maxAvailablePage: 0,
+    maxSavedPage: 0,
+    savedData: [],
+  });
   const [pageIndex, setPageIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const { data: scrollableData, isFetching } = useGetImgBySearchQuery(
+  const [needFetching, setNeedFetching] = useState(false);
+  const { data } = useGetImgBySearchQuery(
     {
       searchTerm,
       page: pageIndex,
@@ -33,40 +42,37 @@ export const HomePage: React.FC = () => {
     //if currently entered term is saved dont update search term render saved data first, if out of data then fetch
     //but fetch from the point where saved data ends
     if (history[term]) {
-      // scrollableData = history[term].slice(((pageIndex-1)*pageIndex), pageIndex*EQueryParams.SEARCH_RESULT_PER_PAGE)
+      setScrollableData(history[term]);
+    } else {
+      //this should be set for infinite scroll logic both in fetch and saved data scenarios
+      if (term !== searchTerm) setPageIndex(1);
+
+      //this should be set when fetching required
+      setSearchTerm(term.trim());
+      setNeedFetching(true);
     }
-
-    //this should be set for infinite scroll logic both in fetch and saved data scenarios
-    if (term !== searchTerm) setPageIndex(1);
-
-    //this should be set when fetching required
-    setSearchTerm(term.trim());
   };
-
-  useEffect(() => {
-    const onScroll = () => {
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      const validQuery = scrollableData.savedData.length > 0;
-      if (scrolledToBottom && !isFetching && validQuery) {
-        setPageIndex(pageIndex + 1);
-      }
-    };
-
-    document.addEventListener("scroll", onScroll);
-
-    return function () {
-      document.removeEventListener("scroll", onScroll);
-    };
-  }, [pageIndex, isFetching]);
+  console.log(pageIndex, data);
   return (
     <>
       <h1>Home</h1>
       <Serachbar onSearchChange={handleSearch} />
       {invalidQuery && <span>"No result. Please try other word"</span>}
+
       {scrollableData.savedData.length > 0 ? (
         <Suspense fallback={<div>"Loading..."</div>}>
-          <ImageList imageList={scrollableData.savedData} />
+          {needFetching && (
+            <InfiniteScroll
+              imageData={data}
+              updateIndex={() => setPageIndex(pageIndex + 1)}
+            />
+          )}
+          {!needFetching && (
+            <InfiniteScroll
+              imageData={scrollableData}
+              updateIndex={() => setPageIndex(pageIndex + 1)}
+            />
+          )}
         </Suspense>
       ) : (
         <PopularImages />
