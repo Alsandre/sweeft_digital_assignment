@@ -2,24 +2,28 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { Serachbar } from "../../components";
 import { useGetImgBySearchQuery } from "../../store/unsplashApi";
 import { PopularImages } from "../../components/popularImages/PopularImages";
+import { parseData } from "../../utils/parseData";
 
 const ImageList = lazy(() => import("../../components/imageList/ImageList"));
 
 export const HomePage: React.FC = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const { data, isFetching } = useGetImgBySearchQuery(
+  const { data: scrollableData, isFetching } = useGetImgBySearchQuery(
     {
       searchTerm,
       page: pageIndex,
     },
-    { skip: searchTerm === "" }
+    {
+      skip: searchTerm === "",
+      selectFromResult: ({ data, isFetching, isLoading }) => ({
+        data: parseData(data),
+        isLoading,
+        isFetching
+      }),
+    }
   );
-  const scrollableData = data?.results ?? [];
-
-  const handleSearch = (term: string) => {
-    setSearchTerm(term);
-  };
+  // const scrollableData = parseData(data);
 
   useEffect(() => {
     const onScroll = () => {
@@ -39,7 +43,7 @@ export const HomePage: React.FC = () => {
   return (
     <>
       <h1>Home</h1>
-      <Serachbar onSearchChange={handleSearch} />
+      <Serachbar onSearchChange={(term) => setSearchTerm(term)} />
       {scrollableData.length > 0 ? (
         <Suspense fallback={<div>"Loading..."</div>}>
           <ImageList imageList={scrollableData} />

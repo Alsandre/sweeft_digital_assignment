@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { updateHistory } from "./historySlice";
+import { parseData } from "../utils/parseData";
 
 const POP_IMG_PER_PAGE = 20;
 const SEARCH_RESULT_PER_PAGE = 20;
@@ -34,7 +35,7 @@ export const unsplashApi = createApi({
       onQueryStarted: async (arg, api) => {
         const { dispatch, queryFulfilled } = api;
         const { data } = await queryFulfilled;
-        dispatch(updateHistory({[arg.searchTerm]: data?.results}))
+        dispatch(updateHistory({ [arg.searchTerm]: parseData(data) }));
       },
     }),
   }),

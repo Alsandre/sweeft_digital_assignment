@@ -33,3 +33,6 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
 - first: it is logical that history state shares data with local storage, so setting localStorage while updating state seems reasonable
 - second: global state is required as soon as application starts, so on App mount seems reasonable place to sync global state with local storage
 - there is too much noise in response, parsing necessary data only seems reasonable
+- the requested data is cleared using utility function
+- useQuery does have selectFromResult this is where we parse data for component
+- and in API where we update state we also parse data so we have same signature globally
