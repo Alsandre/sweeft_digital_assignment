@@ -10,7 +10,7 @@ export const Serachbar: React.FC<TSearchBarProps> = ({ onSearchChange }) => {
 
   useEffect(() => {
     let timeout = setTimeout(() => {
-    onSearchChange(searchTerm);
+      onSearchChange(searchTerm);
     }, 900);
     return () => clearTimeout(timeout);
   }, [searchTerm]);
@@ -19,6 +19,7 @@ export const Serachbar: React.FC<TSearchBarProps> = ({ onSearchChange }) => {
       type="text"
       className={styles["search-bar"]}
       value={searchTerm}
+      name="search"
       onChange={handleInputChange}
       placeholder="Search for image. I.e: toad"
     />

@@ -1,32 +1,67 @@
-# Sweeft Digital Stage II Assignment
+# Sweeft Digital Stage II - Assignment
 
 ### Short summary
 
 photo gallery with two pages main and history, caching for search terms, photo preview, implementing unsplash API, rendering photos with infinite scroll functionality
 
-### Notice
+## The assignment requirements
 
-- Do not use third party libraries like: mui, bootstrap ...
-- Use Typescript
-- Write infinite scroll from scratch
+1. [x] The application should have two pages `Main` and `History`
+2. [x] The `Main` page renders 20 most popular images
+3. [x] At `Main` page should be available input of type text, with name "search", without `search` button. Upon typing text, re-render images list based on search term.
+4. [ ] Implement caching.
+5. [x] At `History` page render list of search queries, for which user requested images. Upon clicking on list entry, render list of related images
+6. [ ] Render list of images using "infinite scroll", both at home and history pages.
+7. [x] When clicked on image, open modal overlay and display full image as well as downloads, views and likes amounts
+8. [x] use unsplashAPI
 
-### Self-notes V_01
+- [x] _**note1**: Do not use component libraries_
+- [x] _**note2**: Write infinite scroll from scratch_
+- [x] _**note3**: Use Typescript_
 
-- pages:
-  - main
-  - history
-- components:
-  - input _for searching_
-  - modal preview _for displaying image, with statistics_
-  - history list _to render saved search terms_
-  - image list _to render list of images_
-- hooks:
-  - fetching _to extract business logic from components_
-- utils:
-  - query builder _as I have checked, unsplash provides different endpoints for tasks at hand, so we need to update URL logically_
-  - storage manager _we will utilize local storage for long term caching, and having functionality to clear history would be nice, so extracting storage management logics seems reasonable_
-- state:
-  - local state _at first glancce having local states should be sufficient, since there is not a complext hierarchy and no deep nesting_
-  - global state \_using global state (redux i.e), is an option, it would make code more clean at glance. but logic could get complicated. I will decide on it later.
-- layout:
-  - single layout element for both pages
+### Technologies and Project structure
+
+#### Technologies:
+
+- `Vite` - Build tool
+- `React` - UI library
+- `Typescript` - Programming language
+- `Redux` - State management tool
+- `RTK` - Tools kit for working with Redux
+
+#### Directory structure:
+
+- components/
+  - imageList/
+  - imagePreview/
+  - popularImages/
+  - searchBar/
+- layout/
+  - Layout
+- pages/
+  - history/
+  - home/
+- store/
+  - store
+  - historySlice
+  - unsplashApi
+- utils/
+  - parseData
+- main
+- App
+- Routes
+- types
+
+### Instructions
+
+```bash
+  git clone https://github.com/Alsandre/sweeft_digital_assignment.git sweeft_digital_assignment
+  cd sweeft_digital_assignment
+  npm install
+  npm run dev
+```
+
+- This will clone repository into `sweeft_digital_assignment` directory
+- Install all necessary dependencies
+- run development server, default port: `5173`
+- access `localhost:5173` in web browser, to view the project
