@@ -10,12 +10,13 @@ export const HistoryPage: React.FC = () => {
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const handleClearHistory = (): void => {
     localStorage.removeItem(ELocalStorage.SAVED_STORAGE);
+    setSearchHistory([]);
   };
   useEffect(() => {
     const storage = localStorage.getItem(ELocalStorage.SAVED_STORAGE)
       ? JSON.parse(localStorage.getItem(ELocalStorage.SAVED_STORAGE)!)
       : null;
-    const termList = Object.keys(storage);
+    const termList = storage ? Object.keys(storage) : [];
     setSearchHistory(termList);
   }, []);
   return (

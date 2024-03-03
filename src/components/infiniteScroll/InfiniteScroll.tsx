@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import styles from "./infiniteScroll.module.css";
+import ImageList from "../imageList/ImageList";
 
 const BOTTOM_SCROLL_OFFSET = 40;
 const BACK_TO_TOP_OFFSET = 300;
@@ -20,6 +21,7 @@ const InfiniteScroll: React.FC<{ term: string }> = ({ term }) => {
       e.currentTarget.scrollHeight - BOTTOM_SCROLL_OFFSET <
       e.currentTarget.scrollTop + e.currentTarget.clientHeight;
     if (scrolledToBottom) {
+      console.log("scroll");
       setPageIndex((prevInd) => prevInd + 1);
       setIsLoading(true);
     }
@@ -30,17 +32,11 @@ const InfiniteScroll: React.FC<{ term: string }> = ({ term }) => {
     }
   };
   return (
-    <div ref={containerRef} onScroll={handlScroll}>
+    <div ref={containerRef} onScroll={handlScroll} className={styles.container}>
       {error && `<span>Error! message: ${error}!`}
       {scrollableData.length > 0 && (
         <ul>
-          {scrollableData.map((obj) => {
-            return (
-              <li key={obj.id}>
-                <img src={obj.urls.regular} alt="" />
-              </li>
-            );
-          })}
+          {scrollableData.length > 0 && <ImageList imageList={scrollableData}/>}
           {isFetching && "Loading..."}
         </ul>
       )}

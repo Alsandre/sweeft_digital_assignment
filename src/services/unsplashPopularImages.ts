@@ -5,14 +5,15 @@ export async function popularImages(): Promise<IResolve> {
     const res = await fetch(query());
     if (!res.ok) throw new Error("fetchData: invalid response");
     const data = await res.json();
+    console.log(data);
     const imageList: IImageData[] =
-      data?.results.map((val: any) => ({
+      data.map((val: any) => ({
         id: val.id,
         urls: val.urls,
         description: val.description,
         alt_description: val["alt_description"],
       })) || [];
-
+    console.log("he");
     return { imageList, status: "ok", error: null };
   } catch (error: any) {
     return { imageList: [], status: "error", error: error.message };
