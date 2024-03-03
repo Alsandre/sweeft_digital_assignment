@@ -1,5 +1,5 @@
 import { API_KEY } from "./unsplashSearch";
-export async function popularImages(id: string): Promise<TStats> {
+export async function imageStats(id: string): Promise<TStats> {
   try {
     const res = await fetch(query(id));
     if (!res.ok) throw new Error("fetchData: invalid response");

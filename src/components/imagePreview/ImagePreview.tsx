@@ -1,6 +1,7 @@
-import { useGetImgStatsQuery } from "../../store/unsplashApi";
+import { useEffect, useState } from "react";
 import { TImagePreview } from "../../types";
 import styles from "./imagePreview.module.css";
+import { imageStats } from "../../services/unsplashStats";
 
 export const ImagePreview: React.FC<TImagePreview> = ({
   id,
@@ -8,10 +9,17 @@ export const ImagePreview: React.FC<TImagePreview> = ({
   alt_description,
   onCloseModal,
 }) => {
-  const { data } = useGetImgStatsQuery(id);
-  const downloadsTotal = data?.downloads.total ?? "";
-  const likesTotal = data?.likes.total ?? "";
-  const viewsTotal = data?.views.total ?? "";
+  const [downloads, setDownloads] = useState(0);
+  const [likes, setLikes] = useState(0);
+  const [views, setViews] = useState(0);
+  useEffect(() => {
+    (async () => {
+      const { downloads, likes, views } = await imageStats(id);
+      setDownloads(downloads);
+      setViews(views);
+      setLikes(likes);
+    })();
+  }, []);
   return (
     <div className={styles.backdrop} onClick={onCloseModal}>
       <div onClick={(e) => e.stopPropagation()}>
@@ -21,9 +29,9 @@ export const ImagePreview: React.FC<TImagePreview> = ({
           alt={alt_description}
           className={styles["image-preview"]}
         />
-        <span>{downloadsTotal}</span>
-        <span>{likesTotal}</span>
-        <span>{viewsTotal}</span>
+        <span>{downloads}</span>
+        <span>{likes}</span>
+        <span>{views}</span>
       </div>
     </div>
   );

@@ -1,21 +1,23 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 import { ELocalStorage } from "../../types";
-import { clearHistory } from "../../store/historySlice";
-import InfiniteScroll from "../../components/imageList/InfiniteScroll";
-import { useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
+
+const InfiniteScroll = lazy(
+  () => import("../../components/infiniteScroll/InfiniteScroll")
+);
 
 export const HistoryPage: React.FC = () => {
-  const history = useSelector((state: RootState) => state.history);
   const [term, setTerm] = useState("");
-  const dispatch = useDispatch();
-  const searchHistory = history ? Object.keys(history) : [];
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const handleClearHistory = (): void => {
     localStorage.removeItem(ELocalStorage.SAVED_STORAGE);
-    dispatch(clearHistory());
   };
-  const scrollableData = term && history[term];
-  console.log(scrollableData);
+  useEffect(() => {
+    const storage = localStorage.getItem(ELocalStorage.SAVED_STORAGE)
+      ? JSON.parse(localStorage.getItem(ELocalStorage.SAVED_STORAGE)!)
+      : null;
+    const termList = Object.keys(storage);
+    setSearchHistory(termList);
+  }, []);
   return (
     <>
       <h1>History</h1>
@@ -28,9 +30,9 @@ export const HistoryPage: React.FC = () => {
             </li>
           ))}
       </ul>
-      {scrollableData && (
-        <InfiniteScroll imageData={scrollableData} updateIndex={() => {}} />
-      )}
+      <Suspense fallback={<div>"Loading..."</div>}>
+        {term.length > 0 && <InfiniteScroll term={term} key={term} />}
+      </Suspense>
     </>
   );
 };

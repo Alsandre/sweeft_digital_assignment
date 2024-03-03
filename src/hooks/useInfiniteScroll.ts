@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { IImageData, searchQuery } from "../services/unsplashSearch";
+import { ELocalStorage } from "../types";
 
 export const useInfiniteScroll = (term: string) => {
   const [scrollableData, setScrollableData] = useState<IImageData[]>([]);
@@ -11,8 +12,8 @@ export const useInfiniteScroll = (term: string) => {
 
   useEffect(() => {
     const historyInStorage =
-      localStorage.getItem("history") !== null
-        ? JSON.parse(localStorage.getItem("history")!)
+      localStorage.getItem(ELocalStorage.SAVED_STORAGE) !== null
+        ? JSON.parse(localStorage.getItem(ELocalStorage.SAVED_STORAGE)!)
         : null;
 
     const termDataFromStorage = historyInStorage
@@ -44,14 +45,16 @@ export const useInfiniteScroll = (term: string) => {
         if (parsedData.status === "ok") {
           setScrollableData((prevState) => {
             const newState = [...prevState, ...parsedData.imageList];
-            const searchHistory = localStorage.getItem("history");
+            const searchHistory = localStorage.getItem(
+              ELocalStorage.SAVED_STORAGE
+            );
             const parsedSearchHistory = searchHistory
               ? JSON.parse(searchHistory)
               : {};
 
             parsedSearchHistory[term] = newState;
             localStorage.setItem(
-              "history",
+              ELocalStorage.SAVED_STORAGE,
               JSON.stringify(parsedSearchHistory)
             );
             return newState;
