@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
-import { THistoryState } from "../types";
+import { ELocalStorage, THistoryState } from "../types";
 
 export const historySlice = createSlice({
   name: "history",
@@ -14,14 +14,26 @@ export const historySlice = createSlice({
       const savedSliceLen = isSaved ? current(state)[currentKey].length : 0;
       const currentSliceLen = action.payload[currentKey].length;
       if (isSaved && savedSliceLen > currentSliceLen) {
+        localStorage.setItem("HISTORY", JSON.stringify(current(state)));
         return current(state);
       } else {
-        return { ...state, ...action.payload };
+        const newState = { ...state, ...action.payload };
+        localStorage.setItem("HISTORY", JSON.stringify(newState));
+        return newState;
       }
+    },
+    syncHistory: () => {
+      const savedHistoryJSON = localStorage.getItem(
+        ELocalStorage.SAVED_STORAGE
+      );
+      const savedHistoryParsed = savedHistoryJSON
+        ? JSON.parse(savedHistoryJSON)
+        : {};
+      return savedHistoryParsed;
     },
   },
 });
 
-export const { updateHistory } = historySlice.actions;
+export const { updateHistory, syncHistory } = historySlice.actions;
 
 export default historySlice.reducer;

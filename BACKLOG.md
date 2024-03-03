@@ -29,3 +29,7 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
 - note: _when component mounts useQuery-s are fired resulting in unnecessary requests. this behaviour can be solved using {skip: boolean} optional argument to useQuery_
 - history is all setup
 - saving data in local storage seems reasonable decision, so that history page will not be depending on current state only, which wont persist on reload
+- we need to define two points, one when to update local storage, and second, when to update from local storage
+- first: it is logical that history state shares data with local storage, so setting localStorage while updating state seems reasonable
+- second: global state is required as soon as application starts, so on App mount seems reasonable place to sync global state with local storage
+- there is too much noise in response, parsing necessary data only seems reasonable

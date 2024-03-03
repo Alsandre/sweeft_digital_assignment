@@ -24,3 +24,7 @@ export type TActionType = {
 export type TSearchBarProps = {
   onSearchChange: (term: string) => void;
 };
+
+export enum ELocalStorage {
+  SAVED_STORAGE = "HISTORY",
+}
