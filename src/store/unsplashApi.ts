@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { updateHistory } from "./historySlice";
 
 const POP_IMG_PER_PAGE = 20;
 const SEARCH_RESULT_PER_PAGE = 20;
@@ -16,7 +17,7 @@ export const unsplashApi = createApi({
       query: (id: string) => `/photos/${id}/statistics/?client_id=${API_KEY}`,
     }),
     getImgBySearch: builder.query({
-      query: ({ searchTerm, page }: { [key: string]: string | number }) => {
+      query: ({ searchTerm, page }: { searchTerm: string; page: number }) => {
         return `/search/photos/?query=${searchTerm}&page=${page}&per_page=${SEARCH_RESULT_PER_PAGE}&client_id=${API_KEY}`;
       },
       serializeQueryArgs: ({ endpointName }) => {
@@ -28,8 +29,12 @@ export const unsplashApi = createApi({
         } else currentCache.results.push(...newItems.results);
       },
       forceRefetch({ currentArg, previousArg }) {
-        console.log(currentArg, previousArg);
         return currentArg !== previousArg;
+      },
+      onQueryStarted: async (arg, api) => {
+        const { dispatch, queryFulfilled } = api;
+        const { data } = await queryFulfilled;
+        dispatch(updateHistory({[arg.searchTerm]: data?.results}))
       },
     }),
   }),

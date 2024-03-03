@@ -5,13 +5,16 @@ export const historySlice = createSlice({
   name: "history",
   initialState: {},
   reducers: {
-    update: (
+    updateHistory: (
       state: THistoryState,
       action: PayloadAction<THistoryState>
     ) => {
       let currentKey = Object.keys(action.payload)[0];
-      if (current(state).hasOwnProperty(currentKey)) {
-        current(state);
+      const isSaved = current(state).hasOwnProperty(currentKey);
+      const savedSliceLen = isSaved ? current(state)[currentKey].length : 0;
+      const currentSliceLen = action.payload[currentKey].length;
+      if (isSaved && savedSliceLen > currentSliceLen) {
+        return current(state);
       } else {
         return { ...state, ...action.payload };
       }
@@ -19,6 +22,6 @@ export const historySlice = createSlice({
   },
 });
 
-export const { update } = historySlice.actions;
+export const { updateHistory } = historySlice.actions;
 
 export default historySlice.reducer;

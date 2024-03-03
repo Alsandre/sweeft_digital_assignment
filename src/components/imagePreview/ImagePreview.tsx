@@ -9,7 +9,6 @@ export const ImagePreview: React.FC<TImagePreview> = ({
   onCloseModal,
 }) => {
   const { data } = useGetImgStatsQuery(id);
-  console.log(data);
   const downloadsTotal = data?.downloads.total ?? "";
   const likesTotal = data?.likes.total ?? "";
   const viewsTotal = data?.views.total ?? "";

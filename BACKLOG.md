@@ -12,11 +12,20 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
 - **Note**: when I uptade scrollabledata setter to a function version, where I use previous state to set new state (that was to make sure that when new pages are fetched old ones wont be discarded) <br>
   when React strict mode is on it has a mechanism that would re-mount component for stress testing, this in current scenario turns into reFetching the data, and merging two versions of same data.<br>ofcourse with current setup it is guaranteed that second fetch wont happen unless page index is updated, but because of stress test we have got double key values<br>since we use id of the image which is guaranteed to be unique, but we got image repetition hence id is repeated. one way would be to implement different value for keys, but I would consider this as inappropriate handling of the situation<br>we dont wish for image duplications anyway, so I'll add logic that will prevent final array from having duplicates
 - I have built infinite scroll with different approaches focusing on intersection observer, I have got working logic but with edge cases that needs to be fixed
-- since there are other functionalities that yet needs to be implemented, i prefer to halt development of this functionality 
+- since there are other functionalities that yet needs to be implemented, i prefer to halt development of this functionality
 - I have finished working version of infinite scroll using element height and scroll event
-- In general itersection observer api provides more control and seems to be more scalable in regards of ui. 
+- In general itersection observer api provides more control and seems to be more scalable in regards of ui.
 - current edge case seems solveable, it's just time factor. since a solution is better than no solution.
 - since rtk provides caching built in and also requesting stats for image preview cant be so intense to stress network. there is no need for storing fetched data.
 - search term is required for fetching and rendering images on home page and but is available from search bar component, aside from those two no other part of the application requires access to current term
 - nevertheless saved term will be consumed by home page and history page and might be required in search bar component for validating data before caching
-- so since search bar is present only at home page I'll be lifting state up in parent and sharing 
+- so since search bar is present only at home page I'll be lifting state up in parent and sharing
+- I was wondering how to manage history, there are quite a few pssible appraches
+- first we need to distinguish where to it belongs, we need access to history when first time fetching or when scrolling down or when rendering list of searcher terms
+- the term that is going to be stored in history needs to be validated
+- that means that for us t decide whether terms belongs in history or not we need to have access to the response for that term
+- so logically following, we can move that logic into api call
+- the logic is simple to make call we need access to the term, and since we are making call response can be waited for.
+- note: _when component mounts useQuery-s are fired resulting in unnecessary requests. this behaviour can be solved using {skip: boolean} optional argument to useQuery_
+- history is all setup
+- saving data in local storage seems reasonable decision, so that history page will not be depending on current state only, which wont persist on reload
