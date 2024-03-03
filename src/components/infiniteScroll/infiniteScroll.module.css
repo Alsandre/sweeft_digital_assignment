@@ -1,0 +1,23 @@
+.container {
+  width: 95%;
+  height: 500px;
+  overflow: scroll;
+  /* scrollbar-width: none; */
+  border: 1px solid green;
+  position: relative;
+}
+/* .container::-webkit-scrollbar {
+    display: none;
+  } */
+
+.back-to-top {
+  position: sticky;
+  bottom: 15px;
+  transform: translateY(100px);
+  transition: all 0.3s;
+  opacity: 0;
+}
+.fade-in {
+  opacity: 1;
+  transform: translateX(0);
+}
