@@ -3,7 +3,6 @@ import { updateHistory } from "./historySlice";
 import { parseData } from "../utils/parseData";
 import { EQueryParams } from "../constants";
 
-
 const API_KEY = import.meta.env.VITE_REACT_APP_API_ACCESS_KEY;
 
 export const unsplashApi = createApi({
@@ -35,7 +34,9 @@ export const unsplashApi = createApi({
       onQueryStarted: async (arg, api) => {
         const { dispatch, queryFulfilled } = api;
         const { data } = await queryFulfilled;
-        dispatch(updateHistory({ [arg.searchTerm]: parseData(data) }));
+        dispatch(
+          updateHistory({ [arg.searchTerm]: parseData(data, arg.page) })
+        );
       },
     }),
   }),

@@ -12,8 +12,13 @@ export type TImageListProps = {
 
 export type TImageCardProps = TImageData & { onClick: () => void };
 
+export type THistorySlice = {
+  maxSavedPage: number
+  maxAvailablePage: number
+  savedData: TImageData[];
+}
 export type THistoryState = {
-  [key: string]: TImageData[];
+  [key: string]: THistorySlice
 };
 
 export type TActionType = {

@@ -1,10 +1,15 @@
-import { TImageData, TResultType, TSearchResponse } from "../types";
+import { THistorySlice, TResultType, TSearchResponse } from "../types";
 
-export function parseData(data: TSearchResponse): TImageData[] {
+export function parseData(
+  data: TSearchResponse,
+  pageIndex: number
+): THistorySlice {
   if (data) {
-    return data?.results.map((result: TResultType) => {
+    let imageList = data?.results.map((result: TResultType) => {
       const { id, alt_description, urls } = result;
       return { id, alt_description, urls };
     });
-  } else return [];
+    const maxAvailablePage = data.total_pages;
+    return { maxSavedPage: pageIndex, maxAvailablePage, savedData: imageList };
+  } else return { maxAvailablePage: 0, maxSavedPage: 0, savedData: [] };
 }

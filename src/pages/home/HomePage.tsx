@@ -5,8 +5,6 @@ import { PopularImages } from "../../components/popularImages/PopularImages";
 import { parseData } from "../../utils/parseData";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { TImageData } from "../../types";
-import { EQueryParams } from "../../constants";
 
 const ImageList = lazy(() => import("../../components/imageList/ImageList"));
 
@@ -22,15 +20,21 @@ export const HomePage: React.FC = () => {
     {
       skip: searchTerm === "",
       selectFromResult: ({ data, isFetching, isLoading }) => ({
-        data: parseData(data),
+        data: parseData(data, pageIndex),
         isLoading,
         isFetching,
       }),
     }
   );
-  const invalidQuery = scrollableData.length === 0 && searchTerm.length > 0;
+  const invalidQuery =
+    scrollableData.savedData.length === 0 && searchTerm.length > 0;
 
   const handleSearch = (term: string) => {
+    //if currently entered term is saved dont update search term render saved data first, if out of data then fetch
+    //but fetch from the point where saved data ends
+    if (history[term]) {
+      // scrollableData = history[term].slice(((pageIndex-1)*pageIndex), pageIndex*EQueryParams.SEARCH_RESULT_PER_PAGE)
+    }
 
     //this should be set for infinite scroll logic both in fetch and saved data scenarios
     if (term !== searchTerm) setPageIndex(1);
@@ -43,7 +47,7 @@ export const HomePage: React.FC = () => {
     const onScroll = () => {
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      const validQuery = scrollableData.length > 0;
+      const validQuery = scrollableData.savedData.length > 0;
       if (scrolledToBottom && !isFetching && validQuery) {
         setPageIndex(pageIndex + 1);
       }
@@ -60,9 +64,9 @@ export const HomePage: React.FC = () => {
       <h1>Home</h1>
       <Serachbar onSearchChange={handleSearch} />
       {invalidQuery && <span>"No result. Please try other word"</span>}
-      {scrollableData.length > 0 ? (
+      {scrollableData.savedData.length > 0 ? (
         <Suspense fallback={<div>"Loading..."</div>}>
-          <ImageList imageList={scrollableData} />
+          <ImageList imageList={scrollableData.savedData} />
         </Suspense>
       ) : (
         <PopularImages />
