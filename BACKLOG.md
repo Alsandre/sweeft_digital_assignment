@@ -45,8 +45,13 @@ If I decide to implement it for both cases (popular and searched) it gets a bit 
 - on the other hand if we have saved more then 1 page we need to render 1 page only and render rest of pages if scrolled down to bottom
 - fixed for rtk cache, upon changing query, reset page to 1
 - .!
-- I have tried implementing infinite scroll without rtk
-- there are two main reasons for that:
-- first: handmade logic is more controlled, when well managed ofcrz!, than logic built on abstractions, personal opinion!
-- second: I am building this demo app using rtk to demonstrate my hubmle knowledge of it, but I think that my strong side is understanding of fundamentals, without which it is hard to actually understand abstracted logic.
-- I have implemented business logic and wired up things,  
+> - **refactor/infinite_scroll**
+> - I have tried implementing infinite scroll without rtk
+> - there are two main reasons for that:
+> - first: handmade logic is more controlled, when well managed ofcrz!, than logic built on abstractions, personal opinion!
+> - second: I am building this demo app using rtk to demonstrate my hubmle knowledge of it, but I think that my strong side is understanding of fundamentals, without which it is hard to actually understand abstracted logic.
+> - I have implemented business logic and wired up things,  
+>
+> _unfortunately this is not a finished project, the functionality is almost all setup but no styles and some layout issues needs to be fixed_
+> _there are debug logs through app that needs to be cleaned up, it would take about two days of time to **clean up**, further **decompose**, apply **styles** and organize **code**._
+> - for now I am burnt out, feeling temperature sore throat :cry: :mask:
