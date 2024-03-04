@@ -66,4 +66,5 @@ photo gallery with two pages main and history, caching for search terms, photo p
 - add .env file into root of the project with `VITE_REACT_APP_CLIENT_ID=[your-unsplash-API-key]`
 - run development server, default port: `5173`
 - access `localhost:5173` in web browser, to view the project
+  
 _if you dont have API key, register [here](https://unsplash.com/join) and follow instructions to create project and get the key_
