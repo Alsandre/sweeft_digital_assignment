@@ -1,10 +1,13 @@
-# Sweeft Digital Stage II - Assignment
+# ~~Sweeft Digital Stage II - Assignment~~
+
+# Infinite Scroll for Image API
 
 ### Short summary
 
-photo gallery with two pages main and history, caching for search terms, photo preview, implementing unsplash API, rendering photos with infinite scroll functionality
+~~photo gallery with two pages main and history, caching for search terms, photo preview, implementing unsplash API, rendering photos with infinite scroll functionality~~
+Although this project was part of the Sweeft digital assignment, I could not take it to my desired output in given time. So on this branch I'll try to apply finishing touches.
 
-## The assignment requirements
+## ~~The assignment requirements~~
 
 1. [x] The application should have two pages `Main` and `History`
 2. [x] The `Main` page renders 20 most popular images
@@ -18,6 +21,13 @@ photo gallery with two pages main and history, caching for search terms, photo p
 - [x] _**note1**: Do not use component libraries_
 - [x] _**note2**: Write infinite scroll from scratch_
 - [x] _**note3**: Use Typescript_
+- [ ]
+
+## Requirements
+
+1. `InfiniteScroll` component accepting `term` as property, renders results from unsplashAPI for given term
+2. The component has caching mechanism, utilising local storage and in-memory storage for optimisation purposes.
+3. Each image rendered by component opens preview modal upon clicking, where preview of image is rendered with unsplash statistics for given image.
 
 ### Technologies and Project structure
 
@@ -26,31 +36,41 @@ photo gallery with two pages main and history, caching for search terms, photo p
 - `Vite` - Build tool
 - `React` - UI library
 - `Typescript` - Programming language
-- `Redux` - State management tool
-- `RTK` - Tools kit for working with Redux
+- ~~`Redux` - State management tool~~
+- ~~`RTK` - Tools kit for working with Redux~~
 
 #### Directory structure:
 
-- components/
-  - imageList/
-  - imagePreview/
-  - popularImages/
-  - searchBar/
-- layout/
-  - Layout
-- pages/
-  - history/
-  - home/
-- store/
-  - store
-  - historySlice
-  - unsplashApi
-- utils/
-  - parseData
-- main
-- App
-- Routes
-- types
+```
+.
+├── components/
+│   ├── popularImages/
+│       ├─ PopularImages.tsx      # fetches &  renderes 20 most popular image
+│   ├── searchBar/
+│       ├─ searchBar.tsx
+│   ├── InfiniteScroll/
+│       ├─ InfiniteScroll.tsx     # scroll layout
+│       ├─ ImagePreview.tsx
+│       ├─ ImageList.tsx
+│       ├─ ImageCard.tsx
+├── hoooks/
+│   ├─ useInfiniteScroll.tsx      # infinite scroll business logic
+├── layout/
+│   ├─ Layout.tsx               
+├── pages/
+│   ├── history/
+│       ├─ HistoryPage.tsx
+│   ├── home/
+│       ├─ HomePage.tsx
+├── services                      # queries
+│   ├─ unsplashPupularImages.ts   
+│   ├─ unsplashSearch.ts
+│   ├─ unsplashStats.ts
+├─ main.tsx
+├─ App.tsx
+├─ Routes.tsx
+├─ types.ts
+```
 
 ### Instructions
 
