@@ -87,3 +87,5 @@ Although this project was part of the Sweeft digital assignment, I could not tak
 - access `localhost:5173` in web browser, to view the project
 
 _if you dont have API key, register [here](https://unsplash.com/join) and follow instructions to create project and get the key_
+
+[Link to prototype draft](https://excalidraw.com/#json=8o369GiH-8dlDpGZtMrVq,GI29Xep4bv8BVULegsclnQ)
