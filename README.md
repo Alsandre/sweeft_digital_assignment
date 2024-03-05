@@ -47,9 +47,10 @@ Although this project was part of the Sweeft digital assignment, I could not tak
 │       ├─ PopularImages.tsx      # fetches &  renderes 20 most popular image
 │   ├── searchBar/
 │       ├─ searchBar.tsx
+│   ├── imagePreview/
+│       ├─ ImagePreview.tsx
 │   ├── InfiniteScroll/
 │       ├─ InfiniteScroll.tsx     # scroll layout
-│       ├─ ImagePreview.tsx
 │       ├─ ImageList.tsx
 │       ├─ ImageCard.tsx
 ├── hoooks/

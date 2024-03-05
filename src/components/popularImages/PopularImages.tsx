@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import ImageList from "../imageList/ImageList";
+import { lazy, useEffect, useState } from "react";
 import { popularImages } from "../../services/unsplashPopularImages";
 import { IImageData } from "../../services/unsplashSearch";
+
+const ImageList = lazy(() => import("../infiniteScroll/ImageList"));
 
 export const PopularImages: React.FC = () => {
   console.log("pop");
