@@ -11,6 +11,7 @@ export const HistoryPage: React.FC = () => {
   const handleClearHistory = (): void => {
     localStorage.removeItem(ELocalStorage.SAVED_STORAGE);
     setSearchHistory([]);
+    setTerm("");
   };
   useEffect(() => {
     const storage = localStorage.getItem(ELocalStorage.SAVED_STORAGE)
